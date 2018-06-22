@@ -28,10 +28,10 @@
     <LangVersion>7.1</LangVersion>
     
     <!--TODO: Fill these in-->
-    <PackageProjectUrl>LINK TO PROJECT</PackageProjectUrl>
-    <RepositoryUrl>LINK TO PROJECT</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/cabauman/FirebaseAuthWrapper</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/cabauman/FirebaseAuthWrapper</RepositoryUrl>
     <PackageReleaseNotes>Initial release</PackageReleaseNotes>
-    <PackageTags>xamarin, ios, android, xamarin.forms, plugin, firebase, authentication, CrossFirebaseAuth</PackageTags>
+    <PackageTags>xamarin, ios, android, xamarin.forms, plugin, firebase, authentication, CrossFirebaseAuth, FirebaseAuthWrapper</PackageTags>
     
     <Title>Firebase Auth Plugin for Xamarin iOS and Android</Title>
     <Summary>Firebase Auth Plugin for Xamarin iOS and Android</Summary>
