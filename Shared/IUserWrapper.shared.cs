@@ -1,9 +1,27 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GameCtor.Firebase.AuthWrapper
 {
     public interface IUserWrapper
     {
+        bool IsEmailVerified { get; }
+
+        string DisplayName { get; }
+
+        bool IsAnonymous { get; }
+
+        string PhoneNumber { get; }
+
+        Uri PhotoUrl { get; }
+
+        string Email { get; }
+
+        string ProviderId { get; }
+
+        string Uid { get; }
+
         /// <summary>
         /// Attaches the given phone credentials to the user. This allows the user to sign in to this account in the future with credentials for such provider.
         /// </summary>

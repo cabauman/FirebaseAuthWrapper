@@ -1,5 +1,5 @@
 ﻿using Firebase.Auth;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace GameCtor.Firebase.AuthWrapper
 {
@@ -11,5 +11,11 @@ namespace GameCtor.Firebase.AuthWrapper
         {
             _additionalUserInfo = additionalUserInfo;
         }
+
+        //public IDictionary<string, object> Profile => _additionalUserInfo.Profile;
+
+        public string ProviderId => _additionalUserInfo.ProviderId;
+
+        public string Username => _additionalUserInfo.Username;
     }
 }

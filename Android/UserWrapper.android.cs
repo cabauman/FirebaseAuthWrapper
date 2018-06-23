@@ -1,6 +1,7 @@
 ﻿using Firebase;
 using Firebase.Auth;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace GameCtor.Firebase.AuthWrapper
@@ -13,6 +14,22 @@ namespace GameCtor.Firebase.AuthWrapper
         {
             _user = user;
         }
+
+        public bool IsEmailVerified => _user.IsEmailVerified;
+
+        public string DisplayName => _user.DisplayName;
+
+        public bool IsAnonymous => _user.IsAnonymous;
+
+        public string PhoneNumber => _user.PhoneNumber;
+
+        public Uri PhotoUrl => new Uri(_user.PhotoUrl.ToString());
+
+        public string Email => _user.Email;
+
+        public string ProviderId => _user.ProviderId;
+
+        public string Uid => _user.Uid;
 
         /// <summary>
         /// Attaches the given phone credentials to the user. This allows the user to sign in to this account in the future with credentials for such provider.
