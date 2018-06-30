@@ -10,13 +10,13 @@ namespace GameCtor.Firebase.AuthWrapper
         /// <summary>
         /// Gets the current user.
         /// </summary>
-        IUserWrapper CurrentUser { get; }
+        IFirebaseUser CurrentUser { get; }
 
         /// <summary>
         /// Signs in the user anonymously without requiring any credential.
         /// </summary>
         /// <returns>Task of IUserWrapper with the result of the operation</returns>
-        Task<IUserWrapper> SignInAnonymouslyAsync();
+        Task<IFirebaseUser> SignInAnonymouslyAsync();
 
         /// <summary>
         /// Attempts to sign in to Firebase with the given phone number, or provides a verification ID if unable.
@@ -31,7 +31,7 @@ namespace GameCtor.Firebase.AuthWrapper
         /// <param name="verificationId"></param>
         /// <param name="verificationCode">The 6 digit SMS-code sent to the user.</param>
         /// <returns>User account</returns>
-        Task<IAuthResultWrapper> SignInWithPhoneNumberAsync(string verificationId, string verificationCode);
+        Task<IFirebaseAuthResult> SignInWithPhoneNumberAsync(string verificationId, string verificationCode);
 
         /// <summary>
         /// Signs in to Firebase with the given Google credentials.
@@ -40,14 +40,14 @@ namespace GameCtor.Firebase.AuthWrapper
         /// <param name="accessToken">The Access Token from Google.</param>
         /// <remarks>Both parameters are optional but at least one must be present.</remarks>
         /// <returns>User account</returns>
-        Task<IAuthResultWrapper> SignInWithGoogleAsync(string idToken, string accessToken);
+        Task<IFirebaseAuthResult> SignInWithGoogleAsync(string idToken, string accessToken);
 
         /// <summary>
         /// Signs in to Firebase with the given Facebook credentials.
         /// </summary>
         /// <param name="accessToken">The Access Token from Facebook.</param>
         /// <returns>User account</returns>
-        Task<IAuthResultWrapper> SignInWithFacebookAsync(string accessToken);
+        Task<IFirebaseAuthResult> SignInWithFacebookAsync(string accessToken);
 
         /// <summary>
         /// Signs in to Firebase with the given Twitter credentials.
@@ -55,14 +55,14 @@ namespace GameCtor.Firebase.AuthWrapper
         /// <param name="token">The Twitter OAuth token.</param>
         /// <param name="secret">The Twitter OAuth secret.</param>
         /// <returns>User account</returns>
-        Task<IAuthResultWrapper> SignInWithTwitterAsync(string token, string secret);
+        Task<IFirebaseAuthResult> SignInWithTwitterAsync(string token, string secret);
 
         /// <summary>
         /// Signs in to Firebase with the given  Github credentials.
         /// </summary>
         /// <param name="token">The GitHub OAuth access token.</param>
         /// <returns>User account</returns>
-        Task<IAuthResultWrapper> SignInWithGithubAsync(string token);
+        Task<IFirebaseAuthResult> SignInWithGithubAsync(string token);
 
         /// <summary>
         /// Signs the user in via email.
@@ -70,7 +70,7 @@ namespace GameCtor.Firebase.AuthWrapper
         /// <param name="email">The user’s email address.</param>
         /// <param name="password">The user’s password.</param>
         /// <returns>User account</returns>
-        Task<IAuthResultWrapper> SignInWithEmailAsync(string email, string password);
+        Task<IFirebaseAuthResult> SignInWithEmailAsync(string email, string password);
 
         /// <summary>
         /// Signs out the current user.

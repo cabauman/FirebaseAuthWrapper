@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace GameCtor.Firebase.AuthWrapper
 {
-    public class AdditionalUserInfoWrapper : IAdditionalUserInfoWrapper
+    public class AdditionalFirebaseUserInfo : IAdditionalFirebaseUserInfo
     {
         private IAdditionalUserInfo _additionalUserInfo;
 
-        public AdditionalUserInfoWrapper(IAdditionalUserInfo additionalUserInfo)
+        public AdditionalFirebaseUserInfo(IAdditionalUserInfo additionalUserInfo)
         {
             _additionalUserInfo = additionalUserInfo;
         }

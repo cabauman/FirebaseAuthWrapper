@@ -37,21 +37,21 @@ namespace GameCtor.Firebase.AuthWrapper
         /// <summary>
         /// Gets the current user.
         /// </summary>
-        public IUserWrapper CurrentUser
+        public IFirebaseUser CurrentUser
         {
-            get { return new UserWrapper(_auth.CurrentUser); }
+            get { return new FirebaseUser(_auth.CurrentUser); }
         }
 
         /// <summary>
         /// Signs in the user anonymously without requiring any credential.
         /// </summary>
         /// <returns>Task of IUserWrapper with the result of the operation</returns>
-        public async Task<IUserWrapper> SignInAnonymouslyAsync()
+        public async Task<IFirebaseUser> SignInAnonymouslyAsync()
         {
             try
             {
                 IAuthResult authResult = await _auth.SignInAnonymouslyAsync();
-                return new UserWrapper(authResult.User);
+                return new FirebaseUser(authResult.User);
             }
             catch(Exception ex)
             {
@@ -91,7 +91,7 @@ namespace GameCtor.Firebase.AuthWrapper
                     throw GetFirebaseAuthException(ex);
                 }
 
-                IAuthResultWrapper authResultWrapper = new AuthResultWrapper(authResult);
+                IFirebaseAuthResult authResultWrapper = new FirebaseAuthResult(authResult);
                 return new PhoneNumberSignInResult()
                 {
                     AuthResult = authResultWrapper
@@ -112,7 +112,7 @@ namespace GameCtor.Firebase.AuthWrapper
         /// <param name="verificationId"></param>
         /// <param name="verificationCode">The 6 digit SMS-code sent to the user.</param>
         /// <returns>User account</returns>
-        public async Task<IAuthResultWrapper> SignInWithPhoneNumberAsync(string verificationId, string verificationCode)
+        public async Task<IFirebaseAuthResult> SignInWithPhoneNumberAsync(string verificationId, string verificationCode)
         {
             AuthCredential credential = PhoneAuthProvider.GetCredential(verificationId, verificationCode);
             return await SignInAsync(credential);
@@ -124,7 +124,7 @@ namespace GameCtor.Firebase.AuthWrapper
         /// <param name="idToken">The ID Token from Google.</param>
         /// <param name="accessToken">The Access Token from Google.</param>
         /// <returns>User account</returns>
-        public async Task<IAuthResultWrapper> SignInWithGoogleAsync(string idToken, string accessToken)
+        public async Task<IFirebaseAuthResult> SignInWithGoogleAsync(string idToken, string accessToken)
         {
             AuthCredential credential = GoogleAuthProvider.GetCredential(idToken, accessToken);
             return await SignInAsync(credential);
@@ -135,7 +135,7 @@ namespace GameCtor.Firebase.AuthWrapper
         /// </summary>
         /// <param name="accessToken">The Access Token from Facebook.</param>
         /// <returns>User account</returns>
-        public async Task<IAuthResultWrapper> SignInWithFacebookAsync(string accessToken)
+        public async Task<IFirebaseAuthResult> SignInWithFacebookAsync(string accessToken)
         {
             AuthCredential credential = FacebookAuthProvider.GetCredential(accessToken);
             return await SignInAsync(credential);
@@ -147,7 +147,7 @@ namespace GameCtor.Firebase.AuthWrapper
         /// <param name="token">The Twitter OAuth token.</param>
         /// <param name="secret">The Twitter OAuth secret.</param>
         /// <returns>User account</returns>
-        public async Task<IAuthResultWrapper> SignInWithTwitterAsync(string token, string secret)
+        public async Task<IFirebaseAuthResult> SignInWithTwitterAsync(string token, string secret)
         {
             AuthCredential credential = TwitterAuthProvider.GetCredential(token, secret);
             return await SignInAsync(credential);
@@ -158,7 +158,7 @@ namespace GameCtor.Firebase.AuthWrapper
         /// </summary>
         /// <param name="token">The GitHub OAuth access token.</param>
         /// <returns>User account</returns>
-        public async Task<IAuthResultWrapper> SignInWithGithubAsync(string token)
+        public async Task<IFirebaseAuthResult> SignInWithGithubAsync(string token)
         {
             AuthCredential credential = GithubAuthProvider.GetCredential(token);
             return await SignInAsync(credential);
@@ -170,12 +170,12 @@ namespace GameCtor.Firebase.AuthWrapper
         /// <param name="email">The user’s email address.</param>
         /// <param name="password">The user’s password.</param>
         /// <returns>User account</returns>
-        public async Task<IAuthResultWrapper> SignInWithEmailAsync(string email, string password)
+        public async Task<IFirebaseAuthResult> SignInWithEmailAsync(string email, string password)
         {
             try
             {
                 IAuthResult authResult = await _auth.SignInWithEmailAndPasswordAsync(email, password);
-                return new AuthResultWrapper(authResult);
+                return new FirebaseAuthResult(authResult);
             }
             catch(Exception ex)
             {
@@ -191,12 +191,12 @@ namespace GameCtor.Firebase.AuthWrapper
             _auth.SignOut();
         }
 
-        private async Task<IAuthResultWrapper> SignInAsync(AuthCredential credential)
+        private async Task<IFirebaseAuthResult> SignInAsync(AuthCredential credential)
         {
             try
             {
                 IAuthResult authResult = await _auth.SignInWithCredentialAsync(credential);
-                return new AuthResultWrapper(authResult);
+                return new FirebaseAuthResult(authResult);
             }
             catch(FirebaseException ex)
             {

@@ -2,7 +2,7 @@
 
 namespace GameCtor.Firebase.AuthWrapper
 {
-    public interface IAdditionalUserInfoWrapper
+    public interface IAdditionalFirebaseUserInfo
     {
         //IDictionary<string, object> Profile { get; }
 

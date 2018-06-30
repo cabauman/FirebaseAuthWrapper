@@ -8,10 +8,11 @@ namespace GameCtor.Firebase.AuthWrapper
     {
         private class PhoneNumberVerificationCallbackWrapper : PhoneAuthProvider.OnVerificationStateChangedCallbacks
         {
-            private TaskCompletionSource<PhoneNumberVerificationResult> _tcs = new TaskCompletionSource<PhoneNumberVerificationResult>();
+            private TaskCompletionSource<PhoneNumberVerificationResult> _tcs;
 
             public Task<PhoneNumberVerificationResult> Verify()
             {
+                _tcs = new TaskCompletionSource<PhoneNumberVerificationResult>();
                 return _tcs.Task;
             }
 

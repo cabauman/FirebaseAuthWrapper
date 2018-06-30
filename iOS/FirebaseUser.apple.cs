@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace GameCtor.Firebase.AuthWrapper
 {
-    public class UserWrapper : IUserWrapper
+    public class FirebaseUser : IFirebaseUser
     {
         private User _user;
 
-        public UserWrapper(User user)
+        public FirebaseUser(User user)
         {
             _user = user;
         }
@@ -36,7 +36,7 @@ namespace GameCtor.Firebase.AuthWrapper
         /// <param name="verificationId">The verification ID obtained by calling VerifyPhoneNumber.</param>
         /// <param name="verificationCode">The 6 digit SMS-code sent to the user.</param>
         /// <returns>Task of IUserWrapper</returns>
-        public async Task<IAuthResultWrapper> LinkWithPhoneNumberAsync(string verificationId, string verificationCode)
+        public async Task<IFirebaseAuthResult> LinkWithPhoneNumberAsync(string verificationId, string verificationCode)
         {
             AuthCredential credential = PhoneAuthProvider.DefaultInstance.GetCredential(verificationId, verificationCode);
             return await LinkWithCredentialAsync(credential);
@@ -48,7 +48,7 @@ namespace GameCtor.Firebase.AuthWrapper
         /// <param name="idToken">The ID Token from Google.</param>
         /// <param name="accessToken">The Access Token from Google.</param>
         /// <returns>Task of IUserWrapper</returns>
-        public async Task<IAuthResultWrapper> LinkWithGoogleAsync(string idToken, string accessToken)
+        public async Task<IFirebaseAuthResult> LinkWithGoogleAsync(string idToken, string accessToken)
         {
             AuthCredential credential = GoogleAuthProvider.GetCredential(idToken, accessToken);
             return await LinkWithCredentialAsync(credential);
@@ -59,7 +59,7 @@ namespace GameCtor.Firebase.AuthWrapper
         /// </summary>
         /// <param name="accessToken">The Access Token from Facebook.</param>
         /// <returns>Task of IUserWrapper</returns>
-        public async Task<IAuthResultWrapper> LinkWithFacebookAsync(string accessToken)
+        public async Task<IFirebaseAuthResult> LinkWithFacebookAsync(string accessToken)
         {
             AuthCredential credential = FacebookAuthProvider.GetCredential(accessToken);
             return await LinkWithCredentialAsync(credential);
@@ -71,7 +71,7 @@ namespace GameCtor.Firebase.AuthWrapper
         /// <param name="token">The Twitter OAuth token.</param>
         /// <param name="secret">The Twitter OAuth secret.</param>
         /// <returns>Task of IUserWrapper</returns>
-        public async Task<IAuthResultWrapper> LinkWithTwitterAsync(string token, string secret)
+        public async Task<IFirebaseAuthResult> LinkWithTwitterAsync(string token, string secret)
         {
             AuthCredential credential = TwitterAuthProvider.GetCredential(token, secret);
             return await LinkWithCredentialAsync(credential);
@@ -82,7 +82,7 @@ namespace GameCtor.Firebase.AuthWrapper
         /// </summary>
         /// <param name="token">The GitHub OAuth access token.</param>
         /// <returns>Task of IUserWrapper</returns>
-        public async Task<IAuthResultWrapper> LinkWithGithubAsync(string token)
+        public async Task<IFirebaseAuthResult> LinkWithGithubAsync(string token)
         {
             AuthCredential credential = GitHubAuthProvider.GetCredential(token);
             return await LinkWithCredentialAsync(credential);
@@ -94,7 +94,7 @@ namespace GameCtor.Firebase.AuthWrapper
         /// <param name="email">The user’s email address.</param>
         /// <param name="password">The user’s password.</param>
         /// <returns>Task of IUserWrapper</returns>
-        public async Task<IAuthResultWrapper> LinkWithEmailAsync(string email, string password)
+        public async Task<IFirebaseAuthResult> LinkWithEmailAsync(string email, string password)
         {
             AuthCredential credential = EmailAuthProvider.GetCredential(email, password);
             return await LinkWithCredentialAsync(credential);
@@ -105,12 +105,12 @@ namespace GameCtor.Firebase.AuthWrapper
         /// </summary>
         /// <param name="providerId">A unique identifier of the type of provider to be unlinked.</param>
         /// <returns>Task of IUserWrapper</returns>
-        public async Task<IUserWrapper> UnlinkAsync(string providerId)
+        public async Task<IFirebaseUser> UnlinkAsync(string providerId)
         {
             try
             {
                 User user = await Auth.DefaultInstance.CurrentUser.UnlinkAsync(providerId);
-                return new UserWrapper(user);
+                return new FirebaseUser(user);
             }
             catch(NSErrorException ex)
             {
@@ -135,12 +135,12 @@ namespace GameCtor.Firebase.AuthWrapper
             }
         }
 
-        private async Task<IAuthResultWrapper> LinkWithCredentialAsync(AuthCredential credential)
+        private async Task<IFirebaseAuthResult> LinkWithCredentialAsync(AuthCredential credential)
         {
             try
             {
                 AuthDataResult authResult = await _user.LinkAndRetrieveDataAsync(credential);
-                return new AuthResultWrapper(authResult);
+                return new FirebaseAuthResult(authResult);
             }
             catch(NSErrorException ex)
             {

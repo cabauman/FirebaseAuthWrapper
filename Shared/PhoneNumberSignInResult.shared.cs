@@ -2,7 +2,7 @@
 {
     public class PhoneNumberSignInResult
     {
-        public IAuthResultWrapper AuthResult { get; set; }
+        public IFirebaseAuthResult AuthResult { get; set; }
 
         public string VerificationId { get; set; }
     }
